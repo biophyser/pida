@@ -1,0 +1,14 @@
+def model_viewer(path, model_number, aggregate_contacts):
+    """
+    Quick viewer for visually inspecting docking contacts output. 
+    Takes aggregate_contacts output from contacts_iterator and plots contacts (in red) 
+    onto receptor-ligand docking solution (blue). 
+    """
+    
+    pdb = md.load(path  + "converted_models/" + "model%s.pdb" % (model_number))
+    
+    view = nv.show_mdtraj(pdb)
+    view.add_cartoon(selection ="protein", color = "blue")
+    view.add_ball_and_stick(selection = aggregate_contacts[model_number], color = "red")
+    
+    return view
